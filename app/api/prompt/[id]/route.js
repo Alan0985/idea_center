@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/db";
 import Prompt from "@models/prompt";
 
 //GET
-export const GET = async ({ params }) => {
+export const GET = async (req, { params }) => {
   try {
     await connectToDB();
     const prompt = await Prompt.findById(params.id).populate("creator");
@@ -17,11 +17,12 @@ export const GET = async ({ params }) => {
 
 //Edit
 export const PATCH = async (req, { params }) => {
-  const { prompt, tag } = req.json();
+  const { prompt, tag } = await req.json();
 
   try {
     await connectToDB();
-    const existingPrompt = Prompt.findById(params.id);
+
+    const existingPrompt = await Prompt.findById(params.id);
 
     if (!existingPrompt)
       return new Response("No prompt found", { status: 404 });
@@ -31,14 +32,14 @@ export const PATCH = async (req, { params }) => {
 
     await existingPrompt.save();
 
-    return new Response(JSON.stringify(existingPrompt), { status: 200 });
+    return new Response("Update prompt successfully", { status: 200 });
   } catch (error) {
     return new Response("Failed to update prompt", { status: 500 });
   }
 };
 
 //Delete
-export const DELETE = async ({ params }) => {
+export const DELETE = async (req, { params }) => {
   try {
     await connectToDB();
     await Prompt.findByIdAndRemove(params.id);
