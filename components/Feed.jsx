@@ -1,17 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import PromptCard from "./PromptCard";
+import IdeaCard from "./IdeaCard";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const IdeaCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
-      {data.map((post) => (
-        <PromptCard
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
+    <div className="mt-16 idea_layout">
+      {data.map((idea) => (
+        <IdeaCard key={idea._id} idea={idea} handleTagClick={handleTagClick} />
       ))}
     </div>
   );
@@ -19,18 +15,18 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [searchText, setSearchText] = useState();
-  const [posts, setPosts] = useState([]);
+  const [ideas, setIdeas] = useState([]);
 
   const handleSearchChange = () => {};
   const handleTagClick = () => {};
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
+    const fetchIdeas = async () => {
+      const response = await fetch("/api/idea");
       const data = await response.json();
-      setPosts(data);
+      setIdeas(data);
     };
-    fetchPosts();
+    fetchIdeas();
   }, []);
 
   return (
@@ -38,7 +34,7 @@ const Feed = () => {
       <form className="relative w-full flex-center">
         <input
           type="text"
-          placeholder="Search for a tag or a username"
+          placeholder="Search Ideas By Tag or Keywords"
           value={searchText}
           onChange={handleSearchChange}
           required
@@ -46,7 +42,7 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList data={posts} handleTagClick={handleTagClick} />
+      <IdeaCardList data={ideas} handleTagClick={handleTagClick} />
     </section>
   );
 };

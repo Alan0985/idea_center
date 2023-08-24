@@ -1,16 +1,18 @@
 import React from "react";
 import Link from "next/link";
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+const Form = ({ type, idea, setIdea, submitting, handleSubmit }) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
-        <span className="blue_gradient">{type} Post</span>
+        <span className="blue_gradient">
+          {type === "Add" ? "New" : type} Idea
+        </span>
       </h1>
 
       <p className="desc text-left max-w-md">
-        {type} and share amazing ideas and Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Optio harum in sapiente nam
+        Inspires individuals, ignite their passion, and empower them to take
+        meaningful actions that ripple through their lives and communities.
       </p>
 
       <form
@@ -19,13 +21,13 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
       >
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
-            Your AI Prompt
+            Your New Idea
           </span>
 
           <textarea
-            value={post.prompt}
-            onChange={(e) => setPost({ ...post, prompt: e.target.value })}
-            placeholder="Write your prompt here..."
+            value={idea.idea}
+            onChange={(e) => setIdea({ ...idea, idea: e.target.value })}
+            placeholder="Your Fantastic Idea Goes Here..."
             required
             className="form_textarea"
           />
@@ -34,12 +36,12 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Tag{" "}
-            <span className="font-normal">(#app, #webdevelopment, #idea)</span>
+            <span className="font-normal">(#Guitar, #IT, #Snowboarding)</span>
           </span>
 
           <input
-            value={post.tag}
-            onChange={(e) => setPost({ ...post, tag: e.target.value })}
+            value={idea.tag}
+            onChange={(e) => setIdea({ ...idea, tag: e.target.value })}
             placeholder="#tag"
             required
             className="form_input"
@@ -47,14 +49,14 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
         </label>
 
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/profile" className="text-gray-500 text-sm">
+          <Link href="/idea" className="text-gray-500 text-sm">
             Cancel
           </Link>
 
           <button
             type="submit"
             disabled={submitting}
-            className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white"
+            className="px-5 py-1.5 text-sm black_btn rounded-full text-white"
           >
             {submitting ? `${type}...` : type}
           </button>

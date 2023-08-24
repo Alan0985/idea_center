@@ -23,34 +23,34 @@ const Nav = () => {
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
-          src="/assets/images/logo.svg"
+          src="/assets/images/bulb.svg"
           alt="Logo"
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           className="object-contain"
         />
-        <p className="logo_text">Promptopia</p>
+        <p className="logo_text">Idea Center</p>
       </Link>
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
-              Create Post
+            <Link href="/add-new-idea" className="black_btn">
+              New Idea
             </Link>
 
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
 
-            <Link href="/profile">
+            <Link href="/idea">
               <Image
                 src={session?.user.image}
                 width={30}
                 height={30}
                 className="rounded-full"
-                alt="profile"
+                alt="idea"
               />
             </Link>
           </div>
@@ -80,25 +80,25 @@ const Nav = () => {
               width={30}
               height={30}
               className="rounded-full"
-              alt="profile"
+              alt="idea"
               onClick={() => setToggleDropdown((prev) => !prev)}
             />
 
             {toggleDropdown && (
               <div className="dropdown">
                 <Link
-                  href="/profile"
+                  href="/idea"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
-                  My Profile
+                  My Ideas
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href="/add-new-idea"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
-                  Create Prompt
+                  New Idea
                 </Link>
                 <button
                   type="button"

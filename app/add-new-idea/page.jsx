@@ -1,32 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import Form from "@components/Form";
 
-const CreatePrompt = () => {
+const AddNewIdea = () => {
   const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState({
-    prompt: "",
+  const [idea, setIdea] = useState({
+    idea: "",
     tag: "",
   });
 
   const { data: session } = useSession();
   const router = useRouter();
 
-  const createPrompt = async (e) => {
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, []);
+
+  const addNewIdea = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 
     try {
-      const response = await fetch("/api/prompt/new", {
+      const response = await fetch("/api/idea/new", {
         method: "POST",
         body: JSON.stringify({
           userId: session?.user.id,
-          prompt: post.prompt,
-          tag: post.tag,
+          idea: idea.idea,
+          tag: idea.tag,
         }),
       });
 
@@ -42,13 +48,13 @@ const CreatePrompt = () => {
 
   return (
     <Form
-      type="Create"
-      post={post}
-      setPost={setPost}
+      type="Add"
+      idea={idea}
+      setIdea={setIdea}
       submitting={submitting}
-      handleSubmit={createPrompt}
+      handleSubmit={addNewIdea}
     />
   );
 };
 
-export default CreatePrompt;
+export default AddNewIdea;

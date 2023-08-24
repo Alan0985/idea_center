@@ -1,14 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
-const PromptSchema = new Schema({
+const IdeaSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
 
-  prompt: {
+  idea: {
     type: String,
-    required: [true, "Prompt is required"],
+    required: [true, "Idea is required"],
   },
 
   tag: {
@@ -17,6 +17,6 @@ const PromptSchema = new Schema({
   },
 });
 
-const Prompt = models.Prompt || model("Prompt", PromptSchema);
+const Idea = models.Idea || model("Idea", IdeaSchema);
 
-export default Prompt;
+export default Idea;

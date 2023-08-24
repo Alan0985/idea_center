@@ -4,15 +4,17 @@ const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center">
-        Discover & Share
-        <br className="max-md:hidden" />
-        <span className="orange_gradient text-center"> AI-Powered Prompts</span>
+        IDEA CENTER
+        <br />
+        <span className="purple_gradient text-center">
+          Where Innovative Ideas Explode
+        </span>
       </h1>
 
       <p className="desc text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-        reiciendis voluptates eveniet harum non ipsum iusto natus fugiat rem
-        ratione architecto excepturi
+        Dynamic and vibrant online platform designed to serve as a collaborative
+        hub where individuals from diverse backgrounds can gather to share,
+        explore, and refine their innovative ideas.
       </p>
 
       <Feed />
