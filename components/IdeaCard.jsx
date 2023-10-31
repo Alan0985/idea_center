@@ -63,7 +63,7 @@ const IdeaCard = ({ idea, handleTagClick, handleEdit, handleDelete }) => {
         {idea.tag}
       </p>
 
-      {session?.user.id === idea.creator._id && pathname === "/idea" && (
+      {session?.user.id === idea.creator._id && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-200 pt-3">
           <p
             className="font-inter text-sm blue_gradient cursor-pointer"

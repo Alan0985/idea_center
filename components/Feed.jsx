@@ -14,20 +14,49 @@ const IdeaCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
-  const [searchText, setSearchText] = useState();
-  const [ideas, setIdeas] = useState([]);
+  const [allIdeas, setAllIdeas] = useState([]);
 
-  const handleSearchChange = () => {};
-  const handleTagClick = () => {};
+  const [searchText, setSearchText] = useState("");
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchedResults, setSearchedResults] = useState([]);
 
   useEffect(() => {
     const fetchIdeas = async () => {
       const response = await fetch("/api/idea");
       const data = await response.json();
-      setIdeas(data);
+      setAllIdeas(data);
     };
     fetchIdeas();
   }, []);
+
+  const filterIdeas = (searchText) => {
+    const regex = new RegExp(searchText, "i");
+    return allIdeas.filter(
+      (item) =>
+        regex.test(item.creator.username) ||
+        regex.test(item.tag) ||
+        regex.test(item.idea)
+    );
+  };
+
+  const handleSearchChange = (e) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    //Debounce
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchedResults = filterIdeas(e.target.value);
+        setSearchedResults(searchedResults);
+      }, 500)
+    );
+  };
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
+
+    const searchedResults = filterIdeas(tag);
+    setSearchedResults(searchedResults);
+  };
 
   return (
     <section className="feed">
@@ -42,7 +71,11 @@ const Feed = () => {
         />
       </form>
 
-      <IdeaCardList data={ideas} handleTagClick={handleTagClick} />
+      {searchText ? (
+        <IdeaCardList data={searchedResults} handleTagClick={handleTagClick} />
+      ) : (
+        <IdeaCardList data={allIdeas} handleTagClick={handleTagClick} />
+      )}
     </section>
   );
 };
